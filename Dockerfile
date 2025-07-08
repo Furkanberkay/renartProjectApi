@@ -11,4 +11,4 @@ WORKDIR /app
 COPY . .
 
 # 0.0.0.0:10000 portunda PHP built-in server başlat (frontend dizinini public root yap)
-CMD ["php", "-S", "0.0.0.0:10000", "-t", "frontend"] 
+CMD ["php", "-S", "0.0.0.0:10000", "-t", "."] 
