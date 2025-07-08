@@ -11,6 +11,10 @@ function getSortAndFilterValues() {
     return { sort, minPrice, maxPrice, minPop, maxPop };
 }
 
+function isMobile() {
+    return window.innerWidth <= 600;
+}
+
 export function renderProducts() {
     const { sort, minPrice, maxPrice, minPop, maxPop } = getSortAndFilterValues();
     let filtered = products.filter(p =>
@@ -27,10 +31,30 @@ export function renderProducts() {
     }
     const gridContainer = document.getElementById('products-grid');
     gridContainer.innerHTML = '';
-    filtered.forEach(product => {
-        const productCard = createProductCard(product);
-        gridContainer.appendChild(productCard);
-    });
+
+    if (!isMobile()) {
+        // DESKTOP/TABLET: Klasik grid
+        gridContainer.className = 'products-grid';
+        filtered.forEach(product => {
+            const productCard = createProductCard(product);
+            gridContainer.appendChild(productCard);
+        });
+    } else {
+        // MOBİL: Yatay kaydırmalı carousel, ok yok, sadece scroll-snap
+        gridContainer.className = 'carousel-container';
+        const carouselWrapper = document.createElement('div');
+        carouselWrapper.className = 'carousel-wrapper';
+        const carouselTrack = document.createElement('div');
+        carouselTrack.className = 'carousel-track';
+        filtered.forEach(product => {
+            const productCard = createProductCard(product);
+            productCard.classList.add('carousel-item');
+            carouselTrack.appendChild(productCard);
+        });
+        carouselWrapper.appendChild(carouselTrack);
+        gridContainer.appendChild(carouselWrapper);
+        // JS ile swipe yok, sadece scroll-snap
+    }
 }
 
 // Event listeners for filter/sort controls

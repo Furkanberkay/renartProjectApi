@@ -13,7 +13,6 @@ export let itemsPerSlide = 1;
 export function initApp() {
     document.addEventListener('DOMContentLoaded', function() {
         loadProducts();
-        setupResponsiveCarousel();
         setupNavigation();
         window.addEventListener('resize', setupResponsiveCarousel);
     });

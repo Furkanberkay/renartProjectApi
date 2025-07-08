@@ -545,82 +545,83 @@ body {
     position: relative;
 }
 
+/* Carousel responsive ve sade görünüm */
 .carousel-container {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    margin: 0 auto 40px auto;
     border-radius: 20px;
+    background: #fff;
 }
-
 .carousel-wrapper {
     overflow: hidden;
+    width: 100%;
 }
-
 .carousel-track {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(.4,1,.4,1);
+    will-change: transform;
+    cursor: grab;
 }
-
 .carousel-item {
     flex: 0 0 100%;
-    padding: 0 20px;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
-
+@media (min-width: 600px) {
+    .carousel-item { flex: 0 0 50%; }
+}
+@media (min-width: 900px) {
+    .carousel-item { flex: 0 0 33.333%; }
+}
+@media (min-width: 1200px) {
+    .carousel-item { flex: 0 0 25%; }
+}
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: white;
+    background: #fff;
     border: 1px solid var(--border-color);
-    width: 60px;
-    height: 60px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--dark-charcoal);
-    transition: all 0.3s ease;
     z-index: 10;
-    box-shadow: var(--shadow-medium);
-}
-
-.carousel-btn:hover {
-    background: var(--primary-gold);
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: translateY(-50%);
-}
-
-.prev-btn {
-    left: -30px;
-}
-
-.next-btn {
-    right: -30px;
-}
-
-.carousel-indicators {
+    box-shadow: var(--shadow-light);
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 12px;
-    margin-top: 40px;
+    opacity: 0.85;
+    transition: all 0.2s;
 }
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--border-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot.active {
+.carousel-btn:hover:not(:disabled) {
     background: var(--primary-gold);
-    transform: scale(1.3);
+    color: #fff;
+    opacity: 1;
+}
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* Mobilde oklar daha küçük ve kenara yakın */
+@media (max-width: 600px) {
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        left: 2px;
+        right: 2px;
+    }
+    .prev-btn { left: 2px; }
+    .next-btn { right: 2px; }
 }
 
 /* Modal */
@@ -944,5 +945,52 @@ body {
         align-items: stretch;
         gap: 18px;
         padding: 16px 10px;
+    }
+}
+
+/* --- GRID (desktop/tablet) --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 32px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+/* --- CAROUSEL (mobil) --- */
+@media (max-width: 600px) {
+    .products-grid {
+        display: block;
+    }
+    .carousel-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0;
+        background: none;
+    }
+    .carousel-wrapper {
+        overflow: visible;
+        width: 100%;
+    }
+    .carousel-track {
+        display: flex;
+        gap: 0;
+        transition: none;
+        will-change: auto;
+        cursor: grab;
+        scroll-snap-type: x mandatory;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .carousel-item {
+        flex: 0 0 100vw;
+        min-width: 100vw;
+        max-width: 100vw;
+        box-sizing: border-box;
+        padding: 0;
+        scroll-snap-align: start;
+    }
+    .carousel-btn {
+        display: none !important;
     }
 }
