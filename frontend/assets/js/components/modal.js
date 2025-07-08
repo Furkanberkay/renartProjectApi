@@ -1,0 +1,1 @@
+// Modal fonksiyonları assignment gereği kaldırıldı. 

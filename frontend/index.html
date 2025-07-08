@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renart Jewelry - Luxury Engagement Rings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-gem"></i>
+                <span>RENART</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#products" class="nav-link">Collections</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="nav-btn search-btn"><i class="fas fa-search"></i></button>
+                <button class="nav-btn cart-btn"><i class="fas fa-shopping-bag"></i></button>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Timeless Elegance</h1>
+            <p class="hero-subtitle">Discover our exquisite collection of handcrafted engagement rings, where every piece tells a story of eternal love</p>
+            <button class="cta-button" onclick="scrollToProducts()">
+                Explore Collection
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+        <div class="hero-decoration">
+            <div class="floating-ring ring-1"></div>
+            <div class="floating-ring ring-2"></div>
+            <div class="floating-ring ring-3"></div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loading" class="loading">
+                <div class="luxury-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <p>Loading our finest collection...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error hidden">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Something went wrong</h3>
+                    <p id="error-message">Unable to load our collection</p>
+                    <button onclick="loadProducts()" class="retry-btn">Try Again</button>
+                </div>
+            </div>
+
+            <!-- Products Content -->
+            <div id="products-content" class="products-content hidden">
+                <div class="section-header">
+                    <div class="section-title">
+                        <h2>Our Collection</h2>
+                        <p>Each piece is carefully crafted with the finest materials</p>
+                    </div>
+                </div>
+
+                <!-- Filter & Sort Controls -->
+                <div class="filter-sort-panel" style="display: flex; gap: 20px; align-items: center; margin-bottom: 24px;">
+                    <label>
+                        Sort by:
+                        <select id="sort-select">
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="popularity-asc">Popularity: Low to High</option>
+                            <option value="popularity-desc">Popularity: High to Low</option>
+                            <option value="name-asc">Name: A-Z</option>
+                            <option value="name-desc">Name: Z-A</option>
+                        </select>
+                    </label>
+                    <label>
+                        Price:
+                        <input type="number" id="min-price" placeholder="Min" style="width: 70px;"> -
+                        <input type="number" id="max-price" placeholder="Max" style="width: 70px;">
+                    </label>
+                    <label>
+                        Popularity:
+                        <input type="number" id="min-popularity" placeholder="Min" min="0" max="5" step="0.1" style="width: 60px;"> -
+                        <input type="number" id="max-popularity" placeholder="Max" min="0" max="5" step="0.1" style="width: 60px;">
+                    </label>
+                    <button id="clear-filters" type="button">Clear</button>
+                </div>
+
+                <!-- Grid View -->
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modal-body">
+                <!-- Product details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-gem"></i>
+                        <span>RENART</span>
+                    </div>
+                    <p>Crafting timeless elegance since 1985</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Collections</h4>
+                    <ul>
+                        <li><a href="#">Engagement Rings</a></li>
+                        <li><a href="#">Wedding Bands</a></li>
+                        <li><a href="#">Necklaces</a></li>
+                        <li><a href="#">Earrings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Renart Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/utils.js"></script>
+    <script type="module" src="assets/js/core/api.js"></script>
+    <script type="module" src="assets/js/core/app.js"></script>
+    <script type="module" src="assets/js/components/navbar.js"></script>
+    <script type="module" src="assets/js/components/footer.js"></script>
+    <script type="module" src="assets/js/components/modal.js"></script>
+    <script type="module" src="assets/js/components/productCard.js"></script>
+    <script type="module" src="assets/js/modules/carousel.js"></script>
+    <script type="module" src="assets/js/modules/productView.js"></script>
+</body>
+</html>
